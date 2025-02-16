@@ -14,6 +14,7 @@ class Tree:
         self.left = None
         self.right = None
         self.op = None
+        self.parent = None
 
     def __str__(self):
         return f"({self.left} {self.op} {self.right})"
@@ -66,7 +67,7 @@ def presedence(op: str) -> int:
     return 0 if op in "+-" else 1
 
 
-working = Tree
+working = Tree()
 for part in parts:
     if working.left is None:
         working.left = part
@@ -78,6 +79,7 @@ for part in parts:
         right = Tree()
         right.left = working.right
         right.op = part
+        right.parent = working
         working.right = right
         working = right
     else:
@@ -115,4 +117,6 @@ def depth_first(tree: Tree) -> float:
 while working.parent is not None:
     working = working.parent
 
-print(depth_first(root))
+print(working)
+
+print(depth_first(working))
