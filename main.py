@@ -84,25 +84,17 @@ for part in parts:
         working = right
     else:
         right = Tree()
-        right.left = working
         right.op = part
         while working.parent is not None:
             working = working.parent
         working.parent = right
+        right.left = working
         working = right
 
 
 def depth_first(tree: Tree) -> float:
-    if isinstance(tree.left, Tree):
-        left = depth_first(tree.left)
-    else:
-        left = tree.left
-
-    if isinstance(tree.right, Tree):
-        right = depth_first(tree.right)
-    else:
-        right = tree.right
-
+    left = depth_first(tree.left) if isinstance(tree.left, Tree) else tree.left
+    right = depth_first(tree.right) if isinstance(tree.right, Tree) else tree.right
     match tree.op:
         case "+":
             return left + right
