@@ -85,7 +85,10 @@ for part in parts:
     else:
         right = Tree()
         right.op = part
-        while working.parent is not None:
+        # TODO: correct swaps; ugh pointer arihmetic
+        while working.parent is not None and presedence(working.parent.op) > presedence(
+            part
+        ):
             working = working.parent
         working.parent = right
         right.left = working
